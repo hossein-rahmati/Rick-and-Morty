@@ -4,26 +4,52 @@ import { allCharacters } from "../data/data";
 import Navbar from "./components/Navbar";
 import CharactersList from "./components/CharactersList";
 import CharacterDetail from "./components/CharacterDetail";
-import Loader from "./components/Loader";
+import toast, { Toaster } from "react-hot-toast";
 import "./App.css";
+import axios from "axios";
 
 function App() {
   const [characters, setCharacters] = useState(allCharacters);
   const [isLoading, setIsLoading] = useState(false);
 
+  // fetch with try,catch
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       setIsLoading(true);
+  //       const { data } = await axios.get(
+  //         "https://rickandmortyapi.com/api/chardacter"
+  //       );
+  //       setCharacters(data.results.slice(0, 5));
+  //     } catch (error) {
+  //       toast.error(error.response.data.error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // fetch with axios
   useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      const res = await fetch("https://rickandmortyapi.com/api/character");
-      const data = await res.json();
-      setCharacters(data.results.slice(0, 5));
-      setIsLoading(false);
-    }
-    fetchData();
+    setIsLoading(true);
+    axios
+      .get("https://rickandmortyapi.com/api/character")
+      .then(({ data }) => {
+        setCharacters(data.results.slice(0, 5));
+      })
+
+      .catch((error) => {
+        toast.error(error.response.data.error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
     <div className="app">
+      <Toaster toastOptions={{ className: "toast" }} />
       <Navbar numOfResult={characters.length} />
       <Main>
         <CharactersList characters={characters} isLoading={isLoading} />
