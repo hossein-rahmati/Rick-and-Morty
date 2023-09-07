@@ -59,8 +59,11 @@
 }
 
 .loading-meassage {
-  color: #fff;
+  color: var(--slate-300);
   font-size: larger;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .toast {

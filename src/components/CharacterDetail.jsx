@@ -1,7 +1,47 @@
-import { character, episodes } from "../../data/data";
+import { useEffect, useState } from "react";
 import { ArrowUpCircleIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
+import Loader from "./Loader";
+import { Toaster, toast } from "react-hot-toast";
 
-function CharacterDetail() {
+function CharacterDetail({ selectedId }) {
+  const [character, setCharacter] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const { data } = await axios.get(
+          `https://rickandmortyapi.com/api/character/${selectedId}`
+        );
+        setCharacter(data);
+      } catch (error) {
+        toast.error(error.response.data.error, { id: 1 });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    if (selectedId) fetchData();
+  }, [selectedId]);
+
+  if (isLoading) {
+    return (
+      <div style={{ flex: 1 }}>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!character || !selectedId) {
+    return (
+      <div style={{ flex: 1, color: "var(--slate-300)", fontSize: "larger" }}>
+        Please select a character
+      </div>
+    );
+  }
+
   return (
     <div style={{ flex: 1 }}>
       <div className="character-detail">
@@ -31,7 +71,8 @@ function CharacterDetail() {
           </div>
         </div>
       </div>
-      <div className="character-episodes">
+
+      {/* <div className="character-episodes">
         <div className="title">
           <h2>List of episodes</h2>
           <button>
@@ -39,7 +80,7 @@ function CharacterDetail() {
           </button>
         </div>
         <ul>
-          {episodes.map((e, index) => (
+          {character.episode.map((e, index) => (
             <li key={e.id}>
               <div>
                 {String(index + 1).padStart(2, "0")} - {e.episode} :{" "}
@@ -49,7 +90,7 @@ function CharacterDetail() {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
