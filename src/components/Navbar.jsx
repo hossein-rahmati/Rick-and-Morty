@@ -1,12 +1,10 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { Children } from "react";
 
 function Navbar({ children }) {
   return (
     <nav className="navbar">
       <Logo />
       {children}
-      <Favorites />
     </nav>
   );
 }
@@ -35,11 +33,11 @@ export function SearchResult({ numOfResult }) {
   return <div className="navbar__result">Found {numOfResult} characters</div>;
 }
 
-function Favorites() {
+export function Favorites({ numOfFavorites }) {
   return (
     <div className="heart">
       <HeartIcon className="icon" />
-      <span className="badge">2</span>
+      <span className="badge">{numOfFavorites}</span>
     </div>
   );
 }

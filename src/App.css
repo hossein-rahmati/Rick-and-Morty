@@ -123,6 +123,10 @@
   color: var(--rose-500);
 }
 
+.icon.green {
+  color: var(--green-600);
+}
+
 .name,
 .info {
   color: var(--slate-200);
