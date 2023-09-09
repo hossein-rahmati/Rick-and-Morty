@@ -1,8 +1,17 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
+import Modal from "./Modal";
+import { useState } from "react";
 
 function Navbar({ children }) {
+  const [modalToggle, setModalToggle] = useState(false);
+
+  const handleModalToggle = (status) => {
+    setModalToggle(status);
+  };
+
   return (
     <nav className="navbar">
+      <Modal modalToggle={modalToggle} onModalToggle={handleModalToggle} />
       <Logo />
       {children}
     </nav>
@@ -35,7 +44,7 @@ export function SearchResult({ numOfResult }) {
 
 export function Favorites({ numOfFavorites }) {
   return (
-    <div className="heart">
+    <div className="heart" onClick={() => handleModalToggle(true)}>
       <HeartIcon className="icon" />
       <span className="badge">{numOfFavorites}</span>
     </div>

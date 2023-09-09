@@ -15,18 +15,30 @@ function App() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
     setIsLoading(true);
     axios
-      .get(`https://rickandmortyapi.com/api/character?name=${query}`)
+      .get(`https://rickandmortyapi.com/api/character?name=${query}`, {
+        cancelToken: source.token,
+      })
       .then(({ data }) => {
         setCharacters(data.results.slice(0, 5));
       })
       .catch((error) => {
-        toast.error(error.response.data.error, { id: 1 });
+        if (!axios.isCancel(error)) {
+          toast.error(error.response.data.error, { id: 1 });
+        }
       })
       .finally(() => {
         setIsLoading(false);
       });
+
+    //cleanup function
+    return () => {
+      source.cancel();
+    };
   }, [query]);
 
   const handleSelectCharacter = (id) => {

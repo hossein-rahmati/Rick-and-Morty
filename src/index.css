@@ -20,6 +20,7 @@ body {
   min-height: 100vh;
   background-color: var(--slate-900);
 }
+
 button {
   background-color: transparent;
   cursor: pointer;
