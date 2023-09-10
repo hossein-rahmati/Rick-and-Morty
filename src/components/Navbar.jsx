@@ -55,7 +55,7 @@ export function Favorites({ favorites, onDeleteFavorite }) {
           );
         })}
       </Modal>
-      <div className="heart" onClick={() => setIsOpen((is) => !is)}>
+      <div style={{ display: isOpen ? "none" : "block" }} className="heart" onClick={() => setIsOpen((is) => !is)}>
         <HeartIcon className="icon" />
         <span className="badge">{favorites.length}</span>
       </div>

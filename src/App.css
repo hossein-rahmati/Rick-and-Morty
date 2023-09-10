@@ -2,11 +2,13 @@
   margin: 0 auto;
   max-width: 1280px;
   position: relative;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .navbar {
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
   align-items: center;
   justify-content: space-between;
   background-color: var(--slate-700);
@@ -49,13 +51,14 @@
 
 .main {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
   gap: 2rem;
 }
 
 .characters-list {
-  width: 40%;
+  width: 100%;
 }
 
 .loading-meassage {
@@ -82,8 +85,8 @@
 
 .list__item {
   display: grid;
-  column-gap: 0.5rem;
-  grid-template-columns: 4rem 1fr 2rem;
+  column-gap: 0.3rem;
+  grid-template-columns: 4rem 1fr 1.5rem;
   grid-template-rows: 1fr 1fr;
   background-color: var(--slate-800);
   border-radius: 1rem;
@@ -156,7 +159,7 @@
 .character-detail__img {
   width: 100%;
   height: auto;
-  max-height: 15rem;
+  max-height: 13rem;
   object-fit: cover;
   object-position: center;
 }
@@ -204,6 +207,23 @@
   overflow-y: auto;
 }
 
+.character-episodes::-webkit-scrollbar-track {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 2px 0;
+  background-color: var(--slate-800);
+}
+
+.character-episodes::-webkit-scrollbar {
+  width: 10px;
+}
+
+.character-episodes::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--slate-500);
+}
+
 .character-episodes .title {
   display: flex;
   align-items: center;
@@ -225,21 +245,43 @@
 
 .character-episodes li {
   display: flex;
-  align-items: center;
+  align-items: start;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
   color: var(--slate-200);
   padding: 0.5rem 0;
+  margin-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
+  .navbar {
+    flex-direction: row;
+  }
+  .main {
+    flex-direction: row;
+  }
+  .characters-list {
+    width: 40%;
+  }
+  .list__item {
+    grid-template-columns: 4rem 1fr 2rem;
+    column-gap: 0.5rem;
+  }
+
+  .character-episodes li {
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+  }
+}
+
+@media (min-width: 425px) {
   .character-detail {
     flex-direction: row;
   }
+
   .character-detail__img {
     width: 40%;
-  }
-  .character-detail__info .actions {
-    flex-direction: row;
   }
 }

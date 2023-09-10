@@ -34,12 +34,14 @@ button {
   border: none;
   outline: none;
 }
+
 .text-field {
   padding: 0.7rem 1rem;
   border-radius: 0.5rem;
   color: var(--slate-100);
   background-color: var(--slate-500);
   font-size: 1.1rem;
+  width: 14rem;
 }
 
 .text-field::placeholder {
@@ -86,6 +88,7 @@ button {
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 1px 1px 50px var(--slate-600);
+  z-index: 10;
 }
 
 .modal__header {
@@ -110,16 +113,19 @@ button {
   color: var(--slate-200);
 }
 
-@media (min-width: 768px) {
-  .modal {
-    max-width: 30rem;
-  }
-}
-
 .backdrop {
   width: 100vw;
   height: 100vh;
   position: fixed;
   inset: 0;
   background-color: rgba(63, 69, 76, 0.8);
+}
+
+@media (min-width: 768px) {
+  .text-field {
+    width: auto;
+  }
+  .modal {
+    max-width: 30rem;
+  }
 }

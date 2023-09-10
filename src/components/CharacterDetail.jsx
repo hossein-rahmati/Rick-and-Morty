@@ -21,9 +21,7 @@ function CharacterDetail({ selectedId, onAddFavorite, isExistInFavorites }) {
         const episodesId = data.episode.map((e) => {
           return e.split("/").at(-1);
         });
-        const { data: episodeData } = await axios.get(
-          `https://rickandmortyapi.com/api/episode/${episodesId}`
-        );
+        const { data: episodeData } = await axios.get(`https://rickandmortyapi.com/api/episode/${episodesId}`);
         setEpisodes([episodeData].flat());
       } catch (error) {
         toast.error(error.response.data.error, { id: 1 });
@@ -44,20 +42,12 @@ function CharacterDetail({ selectedId, onAddFavorite, isExistInFavorites }) {
   }
 
   if (!character || !selectedId) {
-    return (
-      <div style={{ flex: 1, color: "var(--slate-300)", fontSize: "larger" }}>
-        Please select a character
-      </div>
-    );
+    return <div style={{ flex: 1, color: "var(--slate-300)", fontSize: "larger" }}>Please select a character</div>;
   }
 
   return (
     <div style={{ flex: 1 }}>
-      <CharacterSubInfo
-        character={character}
-        isExistInFavorites={isExistInFavorites}
-        onAddFavorite={onAddFavorite}
-      />
+      <CharacterSubInfo character={character} isExistInFavorites={isExistInFavorites} onAddFavorite={onAddFavorite} />
       <EpisodeList episodes={episodes} />
     </div>
   );
