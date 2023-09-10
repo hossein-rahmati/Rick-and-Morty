@@ -12,7 +12,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem("FAVORITES")) || []);
+  const isExistInFavorites = favorites.map((fav) => fav.id).includes(selectedId);
 
   useEffect(() => {
     const CancelToken = axios.CancelToken;
@@ -41,6 +42,10 @@ function App() {
     };
   }, [query]);
 
+  useEffect(() => {
+    localStorage.setItem("FAVORITES", JSON.stringify(favorites));
+  }, [favorites]);
+
   const handleSelectCharacter = (id) => {
     setSelectedId((prevId) => (prevId === id ? null : id));
   };
@@ -50,9 +55,10 @@ function App() {
     toast.success(`"${character.name}" Added to favorites`);
   };
 
-  const isExistInFavorites = favorites
-    .map((fav) => fav.id)
-    .includes(selectedId);
+  const handleDeleteFavorite = (id) => {
+    setFavorites((prevFav) => prevFav.filter((f) => f.id !== id));
+    toast.success("Item removed successfully from favorites");
+  };
 
   return (
     <div className="app">
@@ -60,7 +66,7 @@ function App() {
       <Navbar>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={characters.length} />
-        <Favorites numOfFavorites={favorites.length} />
+        <Favorites favorites={favorites} onDeleteFavorite={handleDeleteFavorite} />
       </Navbar>
       <Main>
         <CharactersList

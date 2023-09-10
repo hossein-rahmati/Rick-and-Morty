@@ -1,17 +1,11 @@
-import { HeartIcon } from "@heroicons/react/24/outline";
-import Modal from "./Modal";
+import { HeartIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { Character } from "./CharactersList";
+import Modal from "./Modal";
 
 function Navbar({ children }) {
-  const [modalToggle, setModalToggle] = useState(false);
-
-  const handleModalToggle = (status) => {
-    setModalToggle(status);
-  };
-
   return (
     <nav className="navbar">
-      <Modal modalToggle={modalToggle} onModalToggle={handleModalToggle} />
       <Logo />
       {children}
     </nav>
@@ -21,7 +15,11 @@ function Navbar({ children }) {
 export default Navbar;
 
 function Logo() {
-  return <div className="navbar__logo">Logo 😍</div>;
+  return (
+    <div>
+      <img className="navbar__logo" src="/public/logo.png" alt="logo" />
+    </div>
+  );
 }
 
 export function Search({ query, setQuery }) {
@@ -42,11 +40,25 @@ export function SearchResult({ numOfResult }) {
   return <div className="navbar__result">Found {numOfResult} characters</div>;
 }
 
-export function Favorites({ numOfFavorites }) {
+export function Favorites({ favorites, onDeleteFavorite }) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="heart" onClick={() => handleModalToggle(true)}>
-      <HeartIcon className="icon" />
-      <span className="badge">{numOfFavorites}</span>
-    </div>
+    <>
+      <Modal modalToggle={isOpen} onModalToggle={setIsOpen} title="list of favorites">
+        {favorites.map((f) => {
+          return (
+            <Character key={f.id} character={f}>
+              <button onClick={() => onDeleteFavorite(f.id)} className="icon red">
+                <TrashIcon />
+              </button>
+            </Character>
+          );
+        })}
+      </Modal>
+      <div className="heart" onClick={() => setIsOpen((is) => !is)}>
+        <HeartIcon className="icon" />
+        <span className="badge">{favorites.length}</span>
+      </div>
+    </>
   );
 }

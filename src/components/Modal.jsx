@@ -5,7 +5,7 @@ function Modal({ title, children, onModalToggle, modalToggle }) {
   if (!modalToggle) return null;
 
   return (
-    <div className="backdrop" onClick={() => onModalToggle(false)}>
+    <div className="backdrop">
       <div className="modal">
         <div className="modal__header">
           <h2 className="title">{title}</h2>

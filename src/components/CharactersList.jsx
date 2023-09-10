@@ -1,29 +1,18 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import Loader from "./Loader";
 
-function CharactersList({
-  characters,
-  isLoading,
-  onSelectCharacter,
-  selectedId,
-}) {
+function CharactersList({ characters, isLoading, onSelectCharacter, selectedId }) {
   return (
     <div className="characters-list">
       {isLoading ? (
         <Loader />
       ) : (
         characters.map((c) => (
-          <Character
-            id={c.id}
-            key={c.id}
-            name={c.name}
-            status={c.status}
-            image={c.image}
-            gender={c.gender}
-            species={c.species}
-            onSelectCharacter={onSelectCharacter}
-            selectedId={selectedId}
-          />
+          <Character key={c.id} character={c}>
+            <button className="icon red" onClick={() => onSelectCharacter(c.id)}>
+              {selectedId === c.id ? <EyeSlashIcon /> : <EyeIcon />}
+            </button>
+          </Character>
         ))
       )}
     </div>
@@ -32,24 +21,13 @@ function CharactersList({
 
 export default CharactersList;
 
-function Character({
-  id,
-  name,
-  status,
-  image,
-  gender,
-  species,
-  onSelectCharacter,
-  selectedId,
-}) {
+export function Character({ character, children }) {
   return (
     <div className="list__item">
-      <img src={image} alt={name} />
-      <CharacterName name={name} gender={gender} />
-      <CharacterInfo status={status} species={species} />
-      <button className="icon red" onClick={() => onSelectCharacter(id)}>
-        {selectedId === id ? <EyeSlashIcon /> : <EyeIcon />}
-      </button>
+      <img src={character.image} alt={character.name} />
+      <CharacterName name={character.name} gender={character.gender} />
+      <CharacterInfo status={character.status} species={character.species} />
+      {children}
     </div>
   );
 }

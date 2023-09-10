@@ -16,8 +16,7 @@
 }
 
 .navbar__logo {
-  color: var(--slate-300);
-  font-weight: 700;
+  width: 8rem;
 }
 
 .navbar__result {
