@@ -17,7 +17,7 @@ export default Navbar;
 function Logo() {
   return (
     <div>
-      <img className="navbar__logo" src="/public/logo.png" alt="logo" />
+      <img className="navbar__logo" src="../../public/logo.png" alt="logo" />
     </div>
   );
 }
