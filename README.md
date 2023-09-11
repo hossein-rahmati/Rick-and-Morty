@@ -19,6 +19,8 @@ React-hot-toast for toasting messages
 
 React-loader-spinner for some animation
 
+you can see demo site by https://rick-and-morty-hossein-rahmati.netlify.app/
+
 Hope you enjoy ❤️
 
 ## Installation and Run
