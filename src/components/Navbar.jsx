@@ -2,6 +2,7 @@ import { HeartIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Character } from "./CharactersList";
 import Modal from "./Modal";
+import logo from "../../public/logo.png";
 
 function Navbar({ children }) {
   return (
@@ -15,7 +16,11 @@ function Navbar({ children }) {
 export default Navbar;
 
 function Logo() {
-  return <img className="navbar__logo" src="/public/logo.png" alt="logo" />;
+  return (
+    <div>
+      <img className="navbar__logo" src={logo} alt="logo" />
+    </div>
+  );
 }
 
 export function Search({ query, setQuery }) {
