@@ -10,6 +10,15 @@ Rick & Morty is a web application for seeking between 826 characters from the Ri
 
 -Be informed of characters' status such as their species, last known location, gender, etc.
 
+-I used these technologies in the app:
+React library
+
+Axios for fetching data from [API](https://rickandmortyapi.com/)
+
+React-hot-toast for toasting messages
+
+React-loader-spinner for some animation
+
 Hope you enjoy ❤️
 
 ## Installation and Run
