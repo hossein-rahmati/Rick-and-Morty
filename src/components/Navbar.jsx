@@ -15,11 +15,7 @@ function Navbar({ children }) {
 export default Navbar;
 
 function Logo() {
-  return (
-    <div>
-      <img className="navbar__logo" src="../../public/logo.png" alt="logo" />
-    </div>
-  );
+  return <img className="navbar__logo" src="/public/logo.png" alt="logo" />;
 }
 
 export function Search({ query, setQuery }) {
