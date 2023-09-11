@@ -1,8 +1,30 @@
-# React + Vite
+# Rick & Morty
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Rick & Morty is a web application for seeking between 826 characters from the Rick & Morty series.
 
-Currently, two official plugins are available:
+-You can efficiently search characters.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-Add your favorite character to the list.
+
+-See the episodes that a character was in it.
+
+-Be informed of characters' status such as their species, last known location, gender, etc.
+
+Hope you enjoy ❤️
+
+## Installation and Run
+
+Use the package manager [npm](https://www.npmjs.com/) to run the app in the developer phase.
+
+```bash
+npm install
+
+npm run dev
+```
+
+## Contributing
+
+Pull requests are welcome. For significant changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
