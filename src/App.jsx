@@ -5,42 +5,18 @@ import CharactersList from "./components/CharactersList";
 import CharacterDetail from "./components/CharacterDetail";
 import toast, { Toaster } from "react-hot-toast";
 import "./App.css";
-import axios from "axios";
+import useCharacters from "./hooks/useCharacters";
 
 function App() {
-  const [characters, setCharacters] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const { isLoading, characters } = useCharacters(query);
   const [selectedId, setSelectedId] = useState(null);
-  const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem("FAVORITES")) || []);
-  const isExistInFavorites = favorites.map((fav) => fav.id).includes(selectedId);
-
-  useEffect(() => {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
-
-    setIsLoading(true);
-    axios
-      .get(`https://rickandmortyapi.com/api/character?name=${query}`, {
-        cancelToken: source.token,
-      })
-      .then(({ data }) => {
-        setCharacters(data.results.slice(0, 5));
-      })
-      .catch((error) => {
-        if (!axios.isCancel(error)) {
-          toast.error(error.response.data.error, { id: 1 });
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-
-    //cleanup function
-    return () => {
-      source.cancel();
-    };
-  }, [query]);
+  const [favorites, setFavorites] = useState(
+    () => JSON.parse(localStorage.getItem("FAVORITES")) || []
+  );
+  const isExistInFavorites = favorites
+    .map((fav) => fav.id)
+    .includes(selectedId);
 
   useEffect(() => {
     localStorage.setItem("FAVORITES", JSON.stringify(favorites));
@@ -66,7 +42,10 @@ function App() {
       <Navbar>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfResult={characters.length} />
-        <Favorites favorites={favorites} onDeleteFavorite={handleDeleteFavorite} />
+        <Favorites
+          favorites={favorites}
+          onDeleteFavorite={handleDeleteFavorite}
+        />
       </Navbar>
       <Main>
         <CharactersList
